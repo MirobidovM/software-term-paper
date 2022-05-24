@@ -1,0 +1,1014 @@
+import tkinter as tk
+from tkinter import*
+
+class SampleAPP(tk.Tk):
+    def __init__(self, *arg, **kwargs):
+        tk.Tk.__init__(self, *arg, **kwargs)
+        container = tk.Frame(self)
+        container.pack(side="top", fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
+
+
+        self.frames = {}
+        for F in (
+        StartPage, UserPage, RegPage, SoxPage, KuptPage, MenuPage, FutbolformaPage, BallsPage, GetriPage, ButsiPage,
+        FutbolformaPage1,FutbolformaPage2,FutbolformaPage3,BallsPage1,BallsPage2,BallsPage3,GetriPage1,GetriPage2,
+        GetriPage3,B1Page,B2Page,B3Page):
+            page_name = F.__name__
+            frame = F(parent=container, controller=self)
+            self.frames[page_name] = frame
+
+            frame.grid(row=0, column=0, sticky="nsew")
+
+            self.show_frame("StartPage")
+
+    def show_frame(self, page_name):
+        frame = self.frames[page_name]
+        frame.tkraise()
+
+
+class StartPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        self.controller.title("MM store")
+        self.controller.state('zoomed')
+        self.controller.iconphoto(False,tk.PhotoImage(file='1234.png'))
+
+
+        label_welcome = tk.Label(self, text='MM store', font=('Bahnschrift SemiBold', 45, 'bold'),
+                                 fg='black')
+        label_welcome.pack(pady=10)
+        login_label = tk.Label(self, text='Введите свой логин', font=('Bahnschrift SemiBold', 30, 'bold'),
+                               fg='black')
+        login_label.pack(pady=10)
+        password_label = tk.Label(self, text='Введите свой пароль', font=('Bahnschrift SemiBold', 30, 'bold'),
+                                  fg='black')
+        password_label.pack(pady=10)
+        my_login = tk.StringVar()
+        login_entry = tk.Entry(self, textvariable=my_login, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        login_entry.pack(pady=10)
+        my_password = tk.StringVar()
+        password_entry = tk.Entry(self, textvariable=my_password, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        password_entry.pack(pady=20)
+
+        def check_login():
+            if my_login.get() == 'MM' and my_password.get() == '7777':
+                controller.show_frame('UserPage')
+
+            else:
+                right_label['text'] = "Неправильный логин или пароль"
+
+        logpass_button = tk.Button(self, text='Войти', command=check_login, font=('Bahnschrift SemiBold', 30, 'bold'),
+                                   fg='black')
+        logpass_button.pack(pady=10)
+
+        right_label = tk.Label(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        right_label.pack(pady=30)
+
+        def reg_profil():
+            controller.show_frame('RegPage')
+
+        reg_button = tk.Button(self, text="Создать аккаунт", command=reg_profil,
+                               font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        reg_button.pack()
+
+
+class UserPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.backGroundImage = PhotoImage(file=r"12345.png")
+        self.backGroundLabel1 = tk.Label(self, image=self.backGroundImage)
+        self.backGroundLabel1.place(x=-1, y=-1)
+        self.controller = controller
+
+        def menu():
+            controller.show_frame('MenuPage')
+
+        menu_button = tk.Button(self, text="Меню", command=menu, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        menu_button.pack(pady=15)
+
+        def sox_tovari():
+            controller.show_frame('SoxPage')
+
+        sox_button = tk.Button(self, text="Сохнаренные товары", command=sox_tovari,
+                               font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        sox_button.pack(pady=15)
+
+        def kupl_tovari():
+            controller.show_frame('KuptPage')
+
+        kupl_button = tk.Button(self, text="Купленные товары", command=kupl_tovari,
+                                font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        kupl_button.pack(pady=15)
+
+
+class SoxPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        def return_page():
+            controller.show_frame('UserPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class KuptPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        def return_page():
+            controller.show_frame('UserPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class RegPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        login2_label = tk.Label(self, text='Создайте логин', font=('Bahnschrift SemiBold', 30, 'bold'),
+                                fg='black')
+        login2_label.pack(pady=30)
+        my_login2 = tk.StringVar()
+        login_entry2 = tk.Entry(self, textvariable=my_login2, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        login_entry2.pack(pady=30)
+        password2_label = tk.Label(self, text='Создайте пароль', font=('Bahnschrift SemiBold', 30, 'bold'),
+                                   fg='black')
+        password2_label.pack(pady=30)
+        my_password2 = tk.StringVar()
+        password_entry2 = tk.Entry(self, textvariable=my_password2, font=('Bahnschrift SemiBold', 30, 'bold'),
+                                   fg='black')
+        password_entry2.pack(pady=30)
+
+        def sox_profil():
+            controller.show_frame('UserPage')
+
+        return_button = tk.Button(self, text='Сохранить', command=sox_profil,
+                                  font=('Bernard MT Condensed', 15, 'bold'), bg='white')
+        return_button.pack(pady=10)
+
+
+class MenuPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        wel_label = tk.Label(self, text='Добро пожаловать в онлайн магазин брендовых товаров',
+                             font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        wel_label.pack()
+
+        def nijniy_page():
+            controller.show_frame('FutbolformaPage')
+
+        nijniy_button = tk.Button(self, text="НИЖНЕЕ БЕЛЬЕ", command=nijniy_page,
+                                       font=('Bernard MT Condensed', 15, 'bold'), bg='white')
+        nijniy_button.pack(pady=10)
+
+        def domashniy_page():
+            controller.show_frame('BallsPage')
+
+        domashniy_button = tk.Button(self, text="ДОМАШНЯЯ ОДЕЖДА", command=domashniy_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        domashniy_button.pack(pady=10)
+
+        def polo_page():
+            controller.show_frame('GetriPage')
+
+        polo_button = tk.Button(self, text="ФУТБОЛКИ И ПОЛО", command=polo_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        polo_button.pack(pady=10)
+
+        def bruki_page():
+            controller.show_frame('ButsiPage')
+
+        bruki_button = tk.Button(self, text="БРЮКИ", command=bruki_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        bruki_button.pack(pady=10)
+
+        def talstovki_page():
+            controller.show_frame('ButsiPage')
+
+        talstovki_button = tk.Button(self, text="ТОЛСТОВКИ И СВИТШОТЫ", command=talstovki_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        talstovki_button.pack(pady=10)
+
+        def rubashki_page():
+            controller.show_frame('ButsiPage')
+
+        rubashki_button = tk.Button(self, text="РУБАШКИ", command=rubashki_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        rubashki_button.pack(pady=10)
+
+        def verhniy_page():
+            controller.show_frame('ButsiPage')
+
+        verhniy_button = tk.Button(self, text="ВЕРХНЯЯ ОДЕЖДА", command=verhniy_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        verhniy_button.pack(pady=10)
+
+        def verhniy_page():
+            controller.show_frame('ButsiPage')
+
+        verhniy_button = tk.Button(self, text="ОБУВЬ", command=verhniy_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                 bg='white')
+        verhniy_button.pack(pady=10)
+
+        def return_page():
+            controller.show_frame('UserPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class FutbolformaPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        ff_label = tk.Label(self, text="Выберите нижний белье", font=('Bernard MT Condensed', 15, 'bold'), bg='white')
+        ff_label.pack()
+
+        def kupf1():
+            controller.show_frame('FutbolformaPage1')
+
+        return_button = tk.Button(self, text='LACOSTE Мужские трусы', command=kupf1, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def kupf2():
+            controller.show_frame('FutbolformaPage2')
+
+        return_button = tk.Button(self, text='LACOSTE Носки', command=kupf2, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def kupf3():
+            controller.show_frame('FutbolformaPage3')
+
+        return_button = tk.Button(self, text='Versace Носки', command=kupf3, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def return_page():
+            controller.show_frame('MenuPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+class BallsPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        b_label = tk.Label(self, text="Выберите домашнюю одежду", font=('Bernard MT Condensed', 15, 'bold'), bg='white')
+        b_label.pack()
+
+        def kupb1():
+            controller.show_frame('BallsPage1')
+
+        return_button = tk.Button(self, text='LACOSTE Мужской халат', command=kupb1, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def kupb2():
+            controller.show_frame('BallsPage2')
+
+        return_button = tk.Button(self, text='Versace Мужской халат', command=kupb2, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def kupb3():
+            controller.show_frame('BallsPage3')
+
+        return_button = tk.Button(self, text='Chanel Мужской халат', command=kupb3, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def return_page():
+            controller.show_frame('MenuPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+class GetriPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        g_label = tk.Label(self, text="Выберите ФУТБОЛКУ", font=('Bernard MT Condensed', 15, 'bold'))
+        g_label.pack()
+
+        def kupg1():
+            controller.show_frame('GetriPage1')
+
+        return_button = tk.Button(self, text='LACOSTE Мужская футболка', command=kupg1, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def kupg2():
+            controller.show_frame('GetriPage2')
+
+        return_button = tk.Button(self, text='LACOSTE Мужское поло', command=kupg2, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def kupg3():
+            controller.show_frame('GetriPage3')
+
+        return_button = tk.Button(self, text='LACOSTE Мужская черная футболка', command=kupg3, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def return_page():
+            controller.show_frame('MenuPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class ButsiPage(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        b_label = tk.Label(self, text="Выберите БРЮКИ", font=('Bernard MT Condensed', 15, 'bold'))
+        b_label.pack()
+
+        def return_pageb():
+            controller.show_frame('B1Page')
+
+        b1_button = tk.Button(self, text='LEVI`S', command=return_pageb, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        b1_button.pack(pady=10)
+
+        def kupb2():
+            controller.show_frame('B2Page')
+
+        return2_button = tk.Button(self, text='BENETTON ', command=kupb2, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return2_button.pack(pady=10)
+
+        def kupb3():
+            controller.show_frame('B3Page')
+
+        return3_button = tk.Button(self, text='LACOSTE', command=kupb3, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return3_button.pack(pady=10)
+
+        def return_page():
+            controller.show_frame('MenuPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+class FutbolformaPage1(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1=tk.Label(self,text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1=tk.Label(self,text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f=tk.Entry(self,font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff=200000
+
+        def schet():
+            summa=ff
+            ff1.config(text=int(summa)*int(f.get()))
+
+        kupit=tk.Button(self,text='Общая сумма',command=schet,font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie=12000
+
+        def dostavka():
+            summ=rastoyanie
+            ff2.config(text=int(summ)*int(km.get()))
+
+        dostavka_button=tk.Button(self,command=dostavka,text='Цена за доставку',font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+
+        def return_page():
+            controller.show_frame('FutbolformaPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class FutbolformaPage2(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+        def return_page():
+            controller.show_frame('FutbolformaPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class FutbolformaPage3(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+
+        def return_page():
+            controller.show_frame('FutbolformaPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+
+class BallsPage1(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+
+        def return_page():
+            controller.show_frame('BallsPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class BallsPage2(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+
+        def return_page():
+            controller.show_frame('BallsPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+
+class BallsPage3(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+        def return_page():
+            controller.show_frame('BallsPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+class GetriPage1(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+
+        def return_page():
+            controller.show_frame('GetriPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+
+class GetriPage2(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+        def return_page():
+            controller.show_frame('GetriPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+
+
+class GetriPage3(tk.Frame):
+    def __init__(self,parent,controller):
+        tk.Frame.__init__(self,parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+        def return_page():
+            controller.show_frame('GetriPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+class B1Page(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        b1_label = tk.Label(self, text="Nike Mercurial\n Эти бутсы подходят больше всего для нападающих и вингеров(в некотором случае и для полузащитников)", font=('Bernard MT Condensed', 15, 'bold'))
+        b1_label.pack()
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+        def kupb1():
+            controller.show_frame('ButsiPage')
+
+        return_button = tk.Button(self, text='Купить', command=kupb1, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def soxb1():
+            controller.show_frame('ButsiPage')
+
+        return_button = tk.Button(self, text='Сохранить', command=soxb1, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+        def return_page():
+            controller.show_frame('ButsiPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+
+class B2Page(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Общая сумма', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+        def return_page():
+            controller.show_frame('ButsiPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+
+
+class B3Page(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+
+        f1 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f1.pack(pady=10)
+
+        ff1 = tk.Label(self, text='Оплата',font=(15))
+        ff1.pack(pady=10)
+
+        f = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        f.pack(pady=20)
+
+        ff = 200000
+
+        def schet():
+            summa = ff
+            ff1.config(text=int(summa) * int(f.get()))
+
+        kupit = tk.Button(self, text='Сумма для товара', command=schet, font=('Bernard MT Condensed', 15, 'bold'))
+        kupit.pack(pady=10)
+
+        f2 = tk.Label(self, text='Укажите количество', font=('Bernard MT Condensed', 15, 'bold'))
+        f2.pack(pady=10)
+
+        ff2 = tk.Label(self, text='Оплата',font=(15))
+        ff2.pack(pady=10)
+
+        km = tk.Entry(self, font=('Bahnschrift SemiBold', 30, 'bold'), fg='black')
+        km.pack(pady=20)
+        rastoyanie = 12000
+
+        def dostavka():
+            summ = rastoyanie
+            ff2.config(text=int(summ) * int(km.get()))
+
+        dostavka_button = tk.Button(self, command=dostavka, text='Цена за доставку',
+                                    font=('Bernard MT Condensed', 15, 'bold'))
+        dostavka_button.pack(pady=10)
+
+
+
+        def return_page():
+            controller.show_frame('ButsiPage')
+
+        return_button = tk.Button(self, text='Назад', command=return_page, font=('Bernard MT Condensed', 15, 'bold'),
+                                  bg='white')
+        return_button.pack(pady=10)
+
+if __name__ == "__main__":
+    app = SampleAPP()
+    app.mainloop()
